@@ -12,7 +12,7 @@ class Message {
   const Message(
       {required this.id,
       required this.message,
-      required this.imageUrl,
+      this.imageUrl,
       required this.createdAt,
       required this.isMine});
 
@@ -33,5 +33,14 @@ class Message {
         imageUrl: map['imageUrl'] != null ? map['iamgeUrl'] as String : null,
         createdAt: DateTime.fromMicrosecondsSinceEpoch(map['imageUrl'] as int),
         isMine: map['isMine'] as bool);
+  }
+
+  Message copyWith({String? imageUrl}) {
+    return Message(
+        id: id,
+        message: message,
+        imageUrl: imageUrl,
+        createdAt: createdAt,
+        isMine: isMine);
   }
 }

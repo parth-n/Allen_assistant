@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show immutable;
@@ -51,6 +49,7 @@ class ChatRepository {
         .set(message.toMap());
 
     GenerateContentResponse response;
+
     try {
       if (image == null) {
         response = await textmodel.generateContent([Content.text(promptText)]);
@@ -80,48 +79,55 @@ class ChatRepository {
           .collection('conversations')
           .doc(userId)
           .collection('messages')
-          .doc(sentMessageId)
+          .doc(receivedMessageid)
           .set(responseMessage.toMap());
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
 
-    Future sendTextMessage(
-        {required String textPrompt, required String apikey}) async {
-      try {
-        final textmodel =
-            GenerativeModel(model: 'gemini-1.5-flash-latest', apiKey: apikey);
-        final userID = _auth.currentUser!.uid;
-        final sentMessageId = const Uuid().v4();
+  Future sendTextMessage(
+      {required String textPrompt, required String apikey}) async {
+    try {
+      final textmodel =
+          GenerativeModel(model: 'gemini-1.5-flash-latest', apiKey: apikey);
+      final userId = _auth.currentUser!.uid;
+      final sentMessageId = const Uuid().v4();
 
-        Message message = Message(
-            id: sentMessageId,
-            message: promptText,
-            createdAt: DateTime.now(),
-            isMine: true);
-        //save to firebase
-        await _firestore
-            .collection('conversations')
-            .doc(userId)
-            .collection('messages')
-            .doc(sentMessageId)
-            .set(message.toMap());
+      Message message = Message(
+          id: sentMessageId,
+          message: textPrompt,
+          createdAt: DateTime.now(),
+          isMine: true);
+      //save to firebase
+      await _firestore
+          .collection('conversations')
+          .doc(userId)
+          .collection('messages')
+          .doc(sentMessageId)
+          .set(message.toMap());
 
-        //text only request
-        final response =
-            await textmodel.generateContent([Content.text(promptText)]);
+      //text only request
+      final response =
+          await textmodel.generateContent([Content.text(textPrompt)]);
 
-        final responseText = response.text;
-        final receivedMessageId = const Uuid().v4();
+      final responseText = response.text;
+      final receivedMessageId = const Uuid().v4();
 
-        final responseMessage = Message(
-            id: receivedMessageId,
-            message: responseText!,
-            createdAt: DateTime.now(),
-            isMine: false);
-      } catch (e) {
-        throw Exception(e.toString());
-      }
+      final responseMessage = Message(
+          id: receivedMessageId,
+          message: responseText!,
+          createdAt: DateTime.now(),
+          isMine: false);
+
+      await _firestore
+          .collection('conversations')
+          .doc(userId)
+          .collection('messages')
+          .doc(receivedMessageId)
+          .set(responseMessage.toMap());
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

@@ -20,7 +20,7 @@ class Message {
     return <String, dynamic>{
       'id': id,
       'message': message,
-      'iimageUrl': imageUrl,
+      'imageUrl': imageUrl,
       'createdAt': createdAt,
       'isMine': isMine
     };
@@ -30,8 +30,9 @@ class Message {
     return Message(
         id: map['id'] as String,
         message: map['message'] as String,
-        imageUrl: map['imageUrl'] != null ? map['iamgeUrl'] as String : null,
-        createdAt: DateTime.fromMicrosecondsSinceEpoch(map['imageUrl'] as int),
+        imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
+        createdAt: DateTime.fromMicrosecondsSinceEpoch(
+            map['createdAt']?.microsecondsSinceEpoch ?? 0),
         isMine: map['isMine'] as bool);
   }
 

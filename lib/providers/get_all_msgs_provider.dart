@@ -23,5 +23,11 @@ final getAllMessageProvider =
 
     controller.sink.add(messages);
   });
+
+  ref.onDispose(() {
+    sub.cancel();
+    controller.close();
+  });
+
   return controller.stream;
 });

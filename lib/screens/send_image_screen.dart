@@ -52,7 +52,7 @@ class _SendImageScreenState extends ConsumerState<SendImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Send Image Prompt!'),
+        title: const Text('Send Image Prompt '),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -111,7 +111,7 @@ class _SendImageScreenState extends ConsumerState<SendImageScreen> {
                 maxLines: null,
               ),
             ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 50),
             // Send Message Button
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -135,7 +135,17 @@ class _SendImageScreenState extends ConsumerState<SendImageScreen> {
                           Navigator.of(context).pop();
                         }
                       },
-                      child: const Text('Send Message'),
+                      child: const Text(
+                        'Send Message',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(
+                        137,
+                        255,
+                        255,
+                        255,
+                      )),
                     ),
             ),
           ],

@@ -33,13 +33,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue[50],
         actions: [
           Consumer(builder: (context, ref, child) {
             return IconButton(
-                onPressed: () {
-                  ref.read(authProvider).signOut();
-                },
-                icon: const Icon(Icons.logout));
+              onPressed: () {
+                ref.read(authProvider).signOut();
+              },
+              icon: const Icon(Icons.logout),
+              iconSize: 25,
+            );
           })
         ],
       ),

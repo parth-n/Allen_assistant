@@ -32,9 +32,9 @@ class LoginScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
                 Text(
-                  'Welcome Back!',
+                  'Welcome to the Assistant ! ',
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                     letterSpacing: 1.5,
@@ -78,7 +78,9 @@ class LoginScreen extends ConsumerWidget {
                             height: 24,
                             fit: BoxFit.contain,
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(
+                            width: 12,
+                          ),
                           const Text(
                             'Sign in with Google',
                             style: TextStyle(
@@ -93,11 +95,11 @@ class LoginScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 Text(
                   'Continue with Google to proceed',
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       color: Colors.grey[600],
                       fontWeight: FontWeight.w700),
                 ),

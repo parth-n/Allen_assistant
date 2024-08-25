@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gemini_chat_bot/providers/provider.dart';
+import '/providers/provider.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -33,8 +33,7 @@ class LoginScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.asset('assets/icons/googlelogo.png',
-                        fit: BoxFit.contain),
+                    Image.asset('assets/googlelogo.png', fit: BoxFit.contain),
                     const Text(
                       'Login with Google',
                       style: TextStyle(color: Colors.grey, fontSize: 18),
